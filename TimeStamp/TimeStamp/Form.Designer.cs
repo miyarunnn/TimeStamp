@@ -1,4 +1,6 @@
-﻿namespace TimeStamp
+﻿using System.Windows.Forms;
+
+namespace TimeStamp
 {
     partial class Form
     {
@@ -35,12 +37,14 @@
             this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(12, 154);
+            this.radioButton1.Location = new System.Drawing.Point(41, 59);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(92, 19);
             this.radioButton1.TabIndex = 0;
@@ -51,7 +55,7 @@
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(143, 154);
+            this.radioButton2.Location = new System.Drawing.Point(172, 59);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(108, 19);
             this.radioButton2.TabIndex = 1;
@@ -62,7 +66,7 @@
             // radioButton3
             // 
             this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(288, 154);
+            this.radioButton3.Location = new System.Drawing.Point(317, 59);
             this.radioButton3.Name = "radioButton3";
             this.radioButton3.Size = new System.Drawing.Size(137, 19);
             this.radioButton3.TabIndex = 2;
@@ -72,7 +76,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 223);
+            this.textBox1.Location = new System.Drawing.Point(41, 128);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(187, 22);
             this.textBox1.TabIndex = 3;
@@ -80,7 +84,7 @@
             // radioButton4
             // 
             this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(12, 198);
+            this.radioButton4.Location = new System.Drawing.Point(41, 103);
             this.radioButton4.Name = "radioButton4";
             this.radioButton4.Size = new System.Drawing.Size(122, 19);
             this.radioButton4.TabIndex = 4;
@@ -101,18 +105,37 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(199, 58);
+            this.label1.Location = new System.Drawing.Point(208, 20);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(43, 15);
             this.label1.TabIndex = 6;
             this.label1.Text = "label1";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(41, 224);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(413, 22);
+            this.textBox2.TabIndex = 7;
+            this.textBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox2_KeyDown);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(38, 206);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(144, 15);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "貼り付けのショートカット";
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(502, 344);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.radioButton4);
@@ -137,6 +160,8 @@
         private System.Windows.Forms.RadioButton radioButton4;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label2;
     }
 }
 

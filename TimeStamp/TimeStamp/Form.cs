@@ -15,6 +15,7 @@ namespace TimeStamp
     public partial class Form : System.Windows.Forms.Form
     {
         AppConfig AppConfig;
+        KeyDown KeyDown;
         public Form()
         {
             InitializeComponent();
@@ -95,8 +96,19 @@ namespace TimeStamp
             DateTime datetime = DateTime.Now;
             var pasteFormat = ConfigurationManager.AppSettings["pasteFormat"];
             label1.Text = datetime.ToString(pasteFormat);
-            this.Update();
+            label1.Refresh();
         }
 
+        private void textBox2_KeyDown(object sender, KeyEventArgs e)
+        {
+            try { 
+                textBox2.Text = KeyDown.keyDictionaly[e.KeyValue];
+            }
+            catch(KeyNotFoundException ex)
+            {
+                //何もしない
+                textBox2.Text = "";
+            }
+        }
     }
 }
