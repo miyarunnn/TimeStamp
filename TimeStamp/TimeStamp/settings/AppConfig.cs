@@ -10,19 +10,25 @@ namespace TimeStamp.settings
     class AppConfig
     {
         static Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-        public static void updatePasteFormat(string value)
+        public static void UpdatePasteFormat(string value)
         {
             config.AppSettings.Settings["pasteFormat"].Value = value;
             config.Save();
         }
-        public static void updateSelected(string value)
+        public static void UpdateSelected(string value)
         {
             config.AppSettings.Settings["selected"].Value = value;
             config.Save();
         }
-        public static void updateFreeformat(string value)
+        public static void UpdateFreeformat(string value)
         {
             config.AppSettings.Settings["freeformat"].Value = value;
+            config.Save();
+        }
+
+        public static void UpdateInputkey(string value)
+        {
+            config.AppSettings.Settings["inputkey"].Value = value;
             config.Save();
         }
     }
