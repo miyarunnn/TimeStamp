@@ -52,6 +52,9 @@
     <Compile Include="Form.Designer.cs">
       <DependentUpon>Form.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logic\AbstractInterceptKeyboard.cs" />
+    <Compile Include="Logic\InputSimulatorLogic.cs" />
+    <Compile Include="Logic\KeyBoardHookLogic.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="settings\AppConfig.cs" />

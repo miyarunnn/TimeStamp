@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
+using TimeStamp.Logic;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace TimeStamp
 {
@@ -19,7 +21,11 @@ namespace TimeStamp
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form());
+
             
+
+
         }
+        
     }
 }

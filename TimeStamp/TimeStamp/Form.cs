@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
 using TimeStamp.settings;
+using TimeStamp.Logic;
 
 namespace TimeStamp
 {
@@ -18,9 +19,34 @@ namespace TimeStamp
         {
             InitializeComponent();
         }
+        private static void InterceptKeyboard_KeyUpEvent(object sender, InterceptKeyboard.OriginalKeyEventArg e)
+        {
+            Console.WriteLine("Keyup KeyCode {0}", e.KeyCode);
+        }
+
+        private static void InterceptKeyboard_KeyDownEvent(object sender, InterceptKeyboard.OriginalKeyEventArg e)
+        {
+            //****************************
+            //ここに決められたキーが入力された時の処理追加
+            Console.WriteLine("Keydown KeyCode {0}", e.KeyCode);
+        }
 
         private void Form_Load(object sender, EventArgs e)
         {
+            //TimeStamp.Logic.KeyboardHook.Start();
+            var interceptKeyboard = new InterceptKeyboard();
+            interceptKeyboard.KeyDownEvent += InterceptKeyboard_KeyDownEvent;
+            //interceptKeyboard.KeyUpEvent += InterceptKeyboard_KeyUpEvent;
+            interceptKeyboard.Hook();
+
+            //var application = new Application();
+            //application.Run(new Window()
+            //{
+            //    Width = 300,
+            //    Height = 300,
+            //});
+
+            //interceptKeyboard.UnHook();
             DateTime datetime = DateTime.Now;
             var pasteFormat = ConfigurationManager.AppSettings["pasteFormat"];
             textBox3.Text = datetime.ToString(pasteFormat);
@@ -94,6 +120,8 @@ namespace TimeStamp
             #region 貼り付けのショートカット
             AppConfig.UpdateInputkey(textBox2.Text);
             #endregion
+            //List<TimeStamp.Logic.InputSimulatorlogic.Input> inputs = new List<TimeStamp.Logic.InputSimulatorlogic.Input>();
+            //TimeStamp.Logic.InputSimulatorlogic.AddKeyboardInput(ref inputs, "ゆっくりしていってね！！");
 
             updateDisplayDate();
         }
