@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Forms;
+using TimeStamp.settings;
 
 namespace TimeStamp.Logic
 {
@@ -95,15 +96,14 @@ namespace TimeStamp.Logic
     class InterceptKeyboard : AbstractInterceptKeyboard
     {
         #region InputEvent
-        public class OriginalKeyEventArg : EventArgs
+        public class OriginalKeyEventArg
         {
-            public int KeyCode { get; }
-            public Keys KeyData { get; }
+            public Keys KeyCode { get; set; }
+            //public String KeyData { get; }
 
             public OriginalKeyEventArg(int keyCode)
             {
-                KeyCode = keyCode;
-                KeyData = 
+                KeyCode = KeyDown.keyDataDictionaly[keyCode];
             }
         }
         public delegate void KeyEventHandler(object sender, OriginalKeyEventArg e);

@@ -31,5 +31,15 @@ namespace TimeStamp.settings
             config.AppSettings.Settings["inputkey"].Value = value;
             config.Save();
         }
+
+        public static void UpdateHiddenShrotcut(string value)
+        {
+            if(value.Equals("ControlKey, Control"))
+            {
+                value = "ControlKey";
+            }
+            config.AppSettings.Settings["hiddenShrotcut"].Value = value;
+            config.Save();
+        }
     }
 }

@@ -28,7 +28,11 @@ namespace TimeStamp
         {
             //****************************
             //ここに決められたキーが入力された時の処理追加
-            Console.WriteLine("Keydown KeyCode {0}", e.KeyCode);
+
+            //キー入力値がショートカットで設定されたキーと一致するか確認
+            InputKeyCheckLogic.InputKeyCheck(e.KeyCode);
+
+            //Console.WriteLine("Keydown KeyCode {0}", e.KeyCode);
         }
 
         private void Form_Load(object sender, EventArgs e)
@@ -72,6 +76,20 @@ namespace TimeStamp
             textBox1.Text = ConfigurationManager.AppSettings["freeformat"];
 
             textBox2.Text = ConfigurationManager.AppSettings["inputkey"];
+
+            //隠しショートカットラベルの表示有無
+            //設定の切り替えはconfigファイルを直接編集する
+            //設定値がtrueだとラベルが表示される
+            bool hiddenShrotcut;
+            if (bool.TryParse(ConfigurationManager.AppSettings["hiddenShrotcutFlag"], out hiddenShrotcut))
+            {
+                hiddenShortcut.Visible = hiddenShrotcut;
+            }
+            else
+            {
+                hiddenShortcut.Visible = false;
+            }
+            hiddenShortcut.Text = ConfigurationManager.AppSettings["hiddenShrotcut"];
 
         }
 
@@ -120,6 +138,10 @@ namespace TimeStamp
             #region 貼り付けのショートカット
             AppConfig.UpdateInputkey(textBox2.Text);
             #endregion
+
+            #region 貼り付けの隠しショートカット
+            AppConfig.UpdateHiddenShrotcut(hiddenShortcut.Text);
+            #endregion
             //List<TimeStamp.Logic.InputSimulatorlogic.Input> inputs = new List<TimeStamp.Logic.InputSimulatorlogic.Input>();
             //TimeStamp.Logic.InputSimulatorlogic.AddKeyboardInput(ref inputs, "ゆっくりしていってね！！");
 
@@ -144,6 +166,8 @@ namespace TimeStamp
 
             try { 
                 textBox2.Text = text;
+                //hiddenShortcut.Text = e.KeyValue.ToString();
+                hiddenShortcut.Text = e.KeyData.ToString();
             }
             catch(KeyNotFoundException ex)
             {
@@ -297,6 +321,11 @@ namespace TimeStamp
                 strList.Remove("Oem5");
                 strList.Add(" \\ ");
             }
+        }
+
+        private void hiddenShortcut_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
