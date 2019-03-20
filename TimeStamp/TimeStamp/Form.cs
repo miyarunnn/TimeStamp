@@ -15,6 +15,9 @@ namespace TimeStamp
 {
     public partial class Form : System.Windows.Forms.Form
     {
+        private InputKeyCheckLogic InputKeyCheckLogic = new InputKeyCheckLogic();
+        private String strDate;
+
         public Form()
         {
             InitializeComponent();
@@ -24,7 +27,7 @@ namespace TimeStamp
             Console.WriteLine("Keyup KeyCode {0}", e.KeyCode);
         }
 
-        private static void InterceptKeyboard_KeyDownEvent(object sender, InterceptKeyboard.OriginalKeyEventArg e)
+        private void InterceptKeyboard_KeyDownEvent(object sender, InterceptKeyboard.OriginalKeyEventArg e)
         {
             //****************************
             //ここに決められたキーが入力された時の処理追加
@@ -32,25 +35,41 @@ namespace TimeStamp
             //キー入力値がショートカットで設定されたキーと一致するか確認
             InputKeyCheckLogic.InputKeyCheck(e.KeyCode);
 
+            if(InputKeyCheckLogic.keyList.Count() == 0) {
+
+                ClipBoardLogic clipBoardLogic = new ClipBoardLogic();
+                //クリップボードのバックアップ取得
+                clipBoardLogic.makeBackup();
+
+                //貼り付けた後はリストをショートカットリストをリセット
+                InputKeyCheckLogic.ShortcutKeyListInit();
+                DateTime datetime = DateTime.Now;
+                var pasteFormat = ConfigurationManager.AppSettings["pasteFormat"];
+
+                //クリップボードに日付をセット
+                clipBoardLogic.setClipborard(datetime.ToString(pasteFormat));
+
+                //Ctrl+Vを送信して貼り付け
+                SendKeys.Send("^v");
+
+                //バックアップを戻す
+                clipBoardLogic.RestoreBackup();
+            }
             //Console.WriteLine("Keydown KeyCode {0}", e.KeyCode);
         }
 
         private void Form_Load(object sender, EventArgs e)
         {
+            setComponents();
             //TimeStamp.Logic.KeyboardHook.Start();
             var interceptKeyboard = new InterceptKeyboard();
             interceptKeyboard.KeyDownEvent += InterceptKeyboard_KeyDownEvent;
             //interceptKeyboard.KeyUpEvent += InterceptKeyboard_KeyUpEvent;
             interceptKeyboard.Hook();
 
-            //var application = new Application();
-            //application.Run(new Window()
-            //{
-            //    Width = 300,
-            //    Height = 300,
-            //});
+            //ショートカットリストの初期化
+            InputKeyCheckLogic.ShortcutKeyListInit();
 
-            //interceptKeyboard.UnHook();
             DateTime datetime = DateTime.Now;
             var pasteFormat = ConfigurationManager.AppSettings["pasteFormat"];
             textBox3.Text = datetime.ToString(pasteFormat);
@@ -93,9 +112,28 @@ namespace TimeStamp
 
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
 
+        /// <summary>
+        /// タスクバーのアイコン動作
+        /// </summary>
+        private void setComponents()
+        {
+            NotifyIcon icon = new NotifyIcon();
+            icon.Icon = new Icon("timestamp64.ico");
+            icon.Visible = true;
+            icon.Text = "timestamp";
+            ContextMenuStrip menu = new ContextMenuStrip();
+            ToolStripMenuItem exitItem = new ToolStripMenuItem();
+            ToolStripMenuItem settingItem = new ToolStripMenuItem();
+            settingItem.Text = "&設定";
+            settingItem.Click += new EventHandler(Form_Show);
+            menu.Items.Add(settingItem);
+
+            exitItem.Text = "&終了";
+            exitItem.Click += new EventHandler(Close_Click);
+            menu.Items.Add(exitItem);
+
+            icon.ContextMenuStrip = menu;
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -326,6 +364,22 @@ namespace TimeStamp
         private void hiddenShortcut_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Close_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void Form_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Hide();
+            e.Cancel = true;
+        }
+
+        private void Form_Show(object sender, EventArgs e)
+        {
+            this.Show();
         }
     }
 }

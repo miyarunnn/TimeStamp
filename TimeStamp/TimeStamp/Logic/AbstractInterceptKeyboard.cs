@@ -103,7 +103,13 @@ namespace TimeStamp.Logic
 
             public OriginalKeyEventArg(int keyCode)
             {
-                KeyCode = KeyDown.keyDataDictionaly[keyCode];
+                try { 
+                    KeyCode = KeyDown.keyDataDictionaly[keyCode];
+                }
+                catch(KeyNotFoundException e)
+                {
+
+                }
             }
         }
         public delegate void KeyEventHandler(object sender, OriginalKeyEventArg e);

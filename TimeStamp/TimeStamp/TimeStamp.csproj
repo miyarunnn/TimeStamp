@@ -53,6 +53,7 @@
       <DependentUpon>Form.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic\AbstractInterceptKeyboard.cs" />
+    <Compile Include="Logic\ClipBoardLogic.cs" />
     <Compile Include="Logic\InputKeyCheckLogic.cs" />
     <Compile Include="Logic\InputSimulatorLogic.cs" />
     <Compile Include="Logic\KeyBoardHookLogic.cs" />
@@ -86,6 +87,9 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="timestamp64.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
