@@ -58,18 +58,25 @@ namespace TimeStamp.Logic
 
         public void RestoreBackup()
         {
-            if(String.IsNullOrEmpty(strBackup) && imgBackup == null)
-            {
-                strBackup = "";
-                imgBackup = null;
+            try { 
+                if(String.IsNullOrEmpty(strBackup) && imgBackup == null)
+                {
+                    strBackup = "";
+                    imgBackup = null;
+                }
+                if (String.IsNullOrEmpty(strBackup) && imgBackup != null)
+                {
+                    Clipboard.SetDataObject(imgBackup, true, 15, 100);
+                }
+                if(!String.IsNullOrEmpty(strBackup) && imgBackup == null)
+                {
+                    Clipboard.SetDataObject(strBackup, true, 15, 100);
+                    //Clipboard.SetText(strBackup);
+                }
             }
-            if (String.IsNullOrEmpty(strBackup) && imgBackup != null)
+            catch(System.Runtime.InteropServices.ExternalException e)
             {
-                Clipboard.SetImage(imgBackup);
-            }
-            if(!String.IsNullOrEmpty(strBackup) && imgBackup == null)
-            {
-                Clipboard.SetText(strBackup);
+                
             }
 
             //バックアップを初期化（メモリを使用し続けそうで怖い）

@@ -22,11 +22,11 @@ namespace TimeStamp.Logic
             //configからショートカットキーの文字列取得
             Keys[] ShortcutKeys = Config_ShortcutKeysConvert();
             //foreach (Keys key in keyList) {
-                Console.WriteLine("flag:" + flag);
-                Console.WriteLine("keyCode:" + keyCode);
-                //Console.WriteLine("key:" + key);
-                Console.WriteLine("keyList.Contains(keyCode):" + keyList.Contains(keyCode));
-                Console.WriteLine("■■■■■■■■■■■■■■■■■■■");
+                //Console.WriteLine("flag:" + flag);
+                //Console.WriteLine("keyCode:" + keyCode);
+                ////Console.WriteLine("key:" + key);
+                //Console.WriteLine("keyList.Contains(keyCode):" + keyList.Contains(keyCode));
+                //Console.WriteLine("■■■■■■■■■■■■■■■■■■■");
                 if (keyList.Contains(keyCode))
                 {
                     //入力されたキーが設定されたショートカットのキーと一致していればそのキーをリストから削除
